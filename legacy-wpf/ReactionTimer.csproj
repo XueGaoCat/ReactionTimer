@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>反应力测试</AssemblyName>
+    <RootNamespace />
+    <StartupObject>ReactionTimer.Program</StartupObject>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+
+    <!-- 界面 XAML 是运行时用 XamlReader.Load 加载的内嵌资源，不能按 Page 编译。 -->
+    <EnableDefaultPageItems>false</EnableDefaultPageItems>
+    <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ReactionTimer.xaml" />
+    <None Remove="ReactionTimer.ico" />
+    <None Remove="EasterEgg.png" />
+    <EmbeddedResource Include="ReactionTimer.xaml" LogicalName="ReactionTimer.xaml" />
+    <EmbeddedResource Include="ReactionTimer.ico" LogicalName="ReactionTimer.ico" />
+    <EmbeddedResource Include="EasterEgg.png" LogicalName="EasterEgg.png" />
+  </ItemGroup>
+
+  <!-- 没装 Visual Studio 也能构建 net48 -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>

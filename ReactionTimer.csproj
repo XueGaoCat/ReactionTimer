@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>ReactionTimer</RootNamespace>
+    <AssemblyName>反应力测试</AssemblyName>
+    <!-- 界面上左下角显示的版本号从这里读，改版本只改这一处。 -->
+    <Version>2.0.0</Version>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Nullable>disable</Nullable>
+
+    <!-- WinUI 3 只支持具体平台，AnyCPU 会在 XAML 编译阶段报错。 -->
+    <Platform Condition="'$(Platform)' == ''">x64</Platform>
+    <Platforms>x86;x64;ARM64</Platforms>
+    <RuntimeIdentifier Condition="'$(RuntimeIdentifier)' == ''">win-x64</RuntimeIdentifier>
+    <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+
+    <UseWinUI>true</UseWinUI>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <!-- 免安装：不生成 MSIX，直接输出可执行文件夹。 -->
+    <WindowsPackageType>None</WindowsPackageType>
+    <!-- 依赖已安装的 Windows App Runtime 1.7，不把运行时打进输出。 -->
+    <WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
+
+    <!-- 旧 WPF 版整体归档在这里，不参与编译与打包。 -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);legacy-wpf\**</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.260224002" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\EasterEgg.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\NewIcon_Oz.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\ReactionTimer.ico" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>
