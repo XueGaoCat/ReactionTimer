@@ -1,11 +1,13 @@
-* text=auto
+# 仓库内与工作区统一用 LF：Windows 上的 VS / Rider / VS Code 都支持，
+# 避免每次 add 都提示 "LF will be replaced by CRLF"。
+* text=auto eol=lf
 
-*.cs      text diff=csharp
-*.xaml    text
-*.csproj  text
+*.cs       text diff=csharp
+*.xaml     text
+*.csproj   text
 *.manifest text
-*.md      text
+*.md       text
 
-*.png     binary
-*.jpg     binary
-*.ico     binary
+*.png      binary
+*.jpg      binary
+*.ico      binary
