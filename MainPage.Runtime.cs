@@ -164,6 +164,8 @@ public sealed partial class MainPage
             Content = BuildRewardContent()
         };
 
+        ApplyDefaultDialogStyle(dialog);
+
         try
         {
             await dialog.ShowAsync();
@@ -180,9 +182,25 @@ public sealed partial class MainPage
         }
     }
 
+    /// <summary>
+    /// WinUI 3 的历史缺陷（microsoft-ui-xaml#8476）：
+    /// 代码里 new 出来的 ContentDialog 不会自动套用 DefaultContentDialogStyle，
+    /// 内部 Popup 的 ContentDialogOpenCloseThemeTransition 因此没挂上，
+    /// 表现就是"有关闭动画、没有打开动画"。显式套一次默认样式即可恢复。
+    /// 该问题从 1.3 一直到 1.7 都还在，官方只给了这个 workaround。
+    /// </summary>
+    private static void ApplyDefaultDialogStyle(ContentDialog dialog)
+    {
+        if (Application.Current.Resources.TryGetValue("DefaultContentDialogStyle", out object value)
+            && value is Style style)
+        {
+            dialog.Style = style;
+        }
+    }
+
     private FrameworkElement BuildRewardContent()
     {
-        // 218 KB 的图每次弹窗都重新读盘解码，第二次开始明显有感。
+        // 2.6 MB 的图只解码一次，之后的弹窗直接复用。
         if (rewardImage == null)
         {
             string path = Path.Combine(AppContext.BaseDirectory, "Assets", "EasterEgg.png");
